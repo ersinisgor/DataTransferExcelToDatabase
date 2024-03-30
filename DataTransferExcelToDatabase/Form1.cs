@@ -1,4 +1,5 @@
 using System.Data.SqlClient;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DataTransferExcelToDatabase
 {
@@ -12,6 +13,20 @@ namespace DataTransferExcelToDatabase
 
 		private void DatabaseToExcel_Click(object sender, EventArgs e)
 		{
+			Excel.Application excelApplication = new Excel.Application();
+			excelApplication.Visible = true;
+			Excel.Workbook workbook = excelApplication.Workbooks.Add(System.Reflection.Missing.Value);
+			Excel.Worksheet worksheet = workbook.Sheets[1];
+
+			string[] Titles = { "Personel No", "First Name", "Last Name", "District", "City" };
+			Excel.Range range;
+
+			for (int i = 0; i < Titles.Length; i++)
+			{
+				range = worksheet.Cells[1, i + 1];
+				range.Value2 = Titles[i];
+			}
+
 			try
 			{
 				connection.Open();
