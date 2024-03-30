@@ -30,6 +30,8 @@
 		{
 			DatabaseToExcel = new Button();
 			richTextBox1 = new RichTextBox();
+			richTextBox2 = new RichTextBox();
+			ExcelToDatabase = new Button();
 			SuspendLayout();
 			// 
 			// DatabaseToExcel
@@ -50,15 +52,36 @@
 			richTextBox1.TabIndex = 1;
 			richTextBox1.Text = "";
 			// 
+			// richTextBox2
+			// 
+			richTextBox2.Location = new Point(94, 245);
+			richTextBox2.Name = "richTextBox2";
+			richTextBox2.Size = new Size(380, 96);
+			richTextBox2.TabIndex = 2;
+			richTextBox2.Text = "";
+			// 
+			// ExcelToDatabase
+			// 
+			ExcelToDatabase.Location = new Point(563, 245);
+			ExcelToDatabase.Name = "ExcelToDatabase";
+			ExcelToDatabase.Size = new Size(104, 23);
+			ExcelToDatabase.TabIndex = 3;
+			ExcelToDatabase.Text = "ExcelToDatabase";
+			ExcelToDatabase.UseVisualStyleBackColor = true;
+			ExcelToDatabase.Click += ExcelToDatabase_Click;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = SystemColors.WindowFrame;
 			ClientSize = new Size(800, 450);
+			Controls.Add(ExcelToDatabase);
+			Controls.Add(richTextBox2);
 			Controls.Add(richTextBox1);
 			Controls.Add(DatabaseToExcel);
 			Name = "Form1";
-			Text = "Form1";
+			Text = "Data Transfer";
 			ResumeLayout(false);
 		}
 
@@ -66,5 +89,7 @@
 
 		private Button DatabaseToExcel;
 		private RichTextBox richTextBox1;
+		private RichTextBox richTextBox2;
+		private Button ExcelToDatabase;
 	}
 }

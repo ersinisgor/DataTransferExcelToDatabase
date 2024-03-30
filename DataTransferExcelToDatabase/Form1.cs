@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Data.SqlClient;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -71,6 +72,62 @@ namespace DataTransferExcelToDatabase
 
 
 
+		}
+
+		private void ExcelToDatabase_Click(object sender, EventArgs e)
+		{
+			Excel.Application excelApplication;
+			Excel.Workbook workbook;
+			Excel.Worksheet worksheet;
+			Excel.Range range;
+
+			int rowCounter;
+			int columnCounter;
+
+			excelApplication = new Excel.Application();
+			workbook = excelApplication.Workbooks.Open(@"C:\Users\Ersin\Desktop\test.xlsx");
+			worksheet = (Excel.Worksheet)workbook.Worksheets.get_Item(1);
+			range = worksheet.UsedRange;
+
+			richTextBox2.Clear();
+
+			for (rowCounter = 2; rowCounter <= range.Rows.Count; rowCounter++)
+			{
+				ArrayList list = new ArrayList();
+
+				for (columnCounter = 1; columnCounter <= range.Columns.Count; columnCounter++)
+				{
+					string value = Convert.ToString((range.Cells[rowCounter, columnCounter] as Excel.Range).Value2);
+					richTextBox2.Text += value + " ";
+					list.Add(value);
+				}
+
+				richTextBox2.Text += "\n";
+			}
+
+			excelApplication.Quit();
+			ReleaseObject(worksheet);
+			ReleaseObject(workbook);
+			ReleaseObject(excelApplication);
+		}
+
+		private void ReleaseObject(Object obj)
+		{
+			try
+			{
+				System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+				obj = null;
+			}
+			catch (Exception ex)
+			{
+
+				obj = null;
+			}
+			finally
+			{
+				GC.Collect();
+
+			}
 		}
 	}
 }
