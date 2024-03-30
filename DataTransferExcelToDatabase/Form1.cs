@@ -34,6 +34,7 @@ namespace DataTransferExcelToDatabase
 				SqlCommand command = new SqlCommand(sql, connection);
 				SqlDataReader reader = command.ExecuteReader();
 
+				int row = 2;
 				while (reader.Read())
 				{
 					string personelNo = reader[0].ToString();
@@ -42,6 +43,19 @@ namespace DataTransferExcelToDatabase
 					string district = reader[3].ToString();
 					string city = reader[4].ToString();
 					richTextBox1.Text += personelNo + " " + firstName + " " + lastName + " " + district + " " + city + "\n";
+
+
+					range = worksheet.Cells[row, 1];
+					range.Value2 = personelNo;
+					range = worksheet.Cells[row, 2];
+					range.Value2 = firstName;
+					range = worksheet.Cells[row, 3];
+					range.Value2 = lastName;
+					range = worksheet.Cells[row, 4];
+					range.Value2 = district;
+					range = worksheet.Cells[row, 5];
+					range.Value2 = city;
+					row++;
 
 				}
 			}
