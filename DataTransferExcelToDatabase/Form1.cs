@@ -103,6 +103,31 @@ namespace DataTransferExcelToDatabase
 				}
 
 				richTextBox2.Text += "\n";
+
+				try
+				{
+					connection.Open();
+					SqlCommand sqlCommand = new SqlCommand("INSERT INTO Personel (PersonelNo, FirstName, LastName, District, City) "
+																								 + "VALUES (@PersonelNo, @FirstName, @LastName, @District, @City)", connection);
+					sqlCommand.Parameters.AddWithValue("@PersonelNo", list[0]);
+					sqlCommand.Parameters.AddWithValue("@FirstName", list[1]);
+					sqlCommand.Parameters.AddWithValue("@LastName", list[2]);
+					sqlCommand.Parameters.AddWithValue("@District", list[3]);
+					sqlCommand.Parameters.AddWithValue("@City", list[4]);
+					sqlCommand.ExecuteNonQuery();
+
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("An error occurred while writing data to SQL, ErrorCode: SQLWRITE01 \n" + ex.ToString());
+				}
+				finally
+				{
+					if (connection != null)
+						connection.Close();
+				}
+
+
 			}
 
 			excelApplication.Quit();
